@@ -1,0 +1,20 @@
+modules {
+  module {
+    name = "oozie_ganglia"
+    language = "python"
+    param host { value = "127.0.0.1" }
+    param port { value = "11000" }
+  }
+}
+
+collection_group {
+  collect_every = 20
+  time_threshold = 60
+  metric { name = "oozie.jobs.total" }
+  metric { name = "oozie.jobs.failed" }
+  metric { name = "oozie.jobs.suspended" }
+  metric { name = "oozie.jobs.killed" }
+  metric { name = "oozie.jobs.succeeded" }
+  metric { name = "oozie.jobs.prepare" }
+  metric { name = "oozie.jobs.running" }
+}
