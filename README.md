@@ -21,3 +21,11 @@ Currently, only number of workflows are provided below:
 - prep
 - running
 - total
+
+## Acknowledgements
+
+This project inspired by: 
+- http://github.com/andreisavu/zookeeper-monitoring
+- https://github.com/kristopherkane/oozie_workflow_status_check
+
+Thank you for great projects!
