@@ -102,8 +102,7 @@ class OozieServer(object):
             if data[u'name'] == "max.memory":
                mem_max = long(data[u'value'])
 
-        result['oozie.jvm.mem.free'] = mem_free
-        result['oozie.jvm.mem.total'] = mem_total
+        result['oozie.jvm.mem.used'] = mem-total - mem_free
         result['oozie.jvm.mem.max'] = mem_max
 
         return result
@@ -198,9 +197,8 @@ def metric_init(params=None):
         'oozie.jobs.succeeded' : {'units': 'Job', 'value_type': 'int'},
         'oozie.jobs.prepare' : {'units': 'Job', 'value_type': 'int'},
         'oozie.jobs.running' : {'units': 'Job', 'value_type': 'int'},
-        'oozie.jvm.mem.total' : {'units': 'Bytes', 'value_type': 'long'},
-        'oozie.jvm.mem.free' : {'units': 'Bytes', 'value_type': 'long'},
-        'oozie.jvm.mem.max' : {'units': 'Bytes', 'value_type': 'long'}
+        'oozie.jvm.mem.used' : {'units': 'Bytes', 'value_type': 'int'},
+        'oozie.jvm.mem.max' : {'units': 'Bytes', 'value_type': 'int'}
     }
     metric_handler.descriptors = {}
     for name, updates in metrics.iteritems():
