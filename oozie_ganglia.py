@@ -19,7 +19,7 @@ Metric
  - oozie.jobs.running
  - oozie.jvm.mem.total
  - oozie.jvm.mem.free
- - oozie.jvm.mem.used
+ - oozie.jvm.mem.max
 
 """
 
@@ -59,7 +59,11 @@ class OozieServer(object):
             'time' : time.time(),
             'data' : {}
         }
-        data = self._get_jobs()
+        
+        jobs_data = self._get_jobs()
+        jvm_data = self._get_jvm()
+        data = dict(jobs_data, **jvm_data)
+        
         OOZIE_METRICS['data'] = data
         OOZIE_LAST_METRICS = copy.deepcopy(OOZIE_METRICS)
         return data
@@ -69,7 +73,7 @@ class OozieServer(object):
         uri = "http://" + self._host + ":" + self._port + "/oozie/v1/admin/instrumentation"
         mem_free = 0
         mem_used = 0
-        mem_total = 0
+        mem_max = 0
 
         try:
             raw_json = urllib.urlopen(uri)
@@ -87,14 +91,20 @@ class OozieServer(object):
         jvm = []
 
         for variable in json_object[u'variables']:
-            if variable.get(u'group') == "jvm":
-                jvm = variable.get(u'group')
+            if variable[u'group'] == "jvm":
+                jvm = variable[u'data']
 
-        mem_free = long(jvm.get(u'free.memory'))
-        mem_total = long(jvm.get(u'total.memory'))
+        for data in jvm:
+            if data[u'name'] == "free.memory":
+               mem_free = long(data[u'value'])
+            if data[u'name'] == "total.memory":
+               mem_total = long(data[u'value'])
+            if data[u'name'] == "max.memory":
+               mem_max = long(data[u'value'])
 
         result['oozie.jvm.mem.free'] = mem_free
         result['oozie.jvm.mem.total'] = mem_total
+        result['oozie.jvm.mem.max'] = mem_max
 
         return result
 
