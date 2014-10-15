@@ -191,15 +191,16 @@ def metric_init(params=None):
     metric_handler.timestamp = 0
 
     metrics = {
-        'oozie.jobs.total' : {'units': 'Job'},
-        'oozie.jobs.failed' : {'units': 'Job'},
-        'oozie.jobs.suspended' : {'units': 'Job'},
-        'oozie.jobs.killed' : {'units': 'Job'},
-        'oozie.jobs.succeeded' : {'units': 'Job'},
-        'oozie.jobs.prepare' : {'units': 'Job'},
-        'oozie.jobs.running' : {'units': 'Job'},
-        'oozie.jvm.mem.total' : {'units': 'Bytes'},
-        'oozie.jvm.mem.free' : {'units': 'Bytes'}
+        'oozie.jobs.total' : {'units': 'Job', 'value_type': 'int'},
+        'oozie.jobs.failed' : {'units': 'Job', 'value_type': 'int'},
+        'oozie.jobs.suspended' : {'units': 'Job', 'value_type': 'int'},
+        'oozie.jobs.killed' : {'units': 'Job', 'value_type': 'int'},
+        'oozie.jobs.succeeded' : {'units': 'Job', 'value_type': 'int'},
+        'oozie.jobs.prepare' : {'units': 'Job', 'value_type': 'int'},
+        'oozie.jobs.running' : {'units': 'Job', 'value_type': 'int'},
+        'oozie.jvm.mem.total' : {'units': 'Bytes', 'value_type': 'long'},
+        'oozie.jvm.mem.free' : {'units': 'Bytes', 'value_type': 'long'},
+        'oozie.jvm.mem.max' : {'units': 'Bytes', 'value_type': 'long'}
     }
     metric_handler.descriptors = {}
     for name, updates in metrics.iteritems():
@@ -207,7 +208,7 @@ def metric_init(params=None):
             'name': name,
             'call_back': metric_handler,
             'time_max': 90,
-            'value_type': 'int',
+            'value_type': '',
             'units': '',
             'slope': 'both',
             'format': '%d',
