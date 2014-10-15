@@ -17,4 +17,6 @@ collection_group {
   metric { name = "oozie.jobs.succeeded" }
   metric { name = "oozie.jobs.prepare" }
   metric { name = "oozie.jobs.running" }
+  metric { name = "oozie.jvm.mem.used" }
+  metric { name = "oozie.jvm.mem.max" }
 }
