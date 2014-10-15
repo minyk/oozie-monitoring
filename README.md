@@ -14,13 +14,17 @@ restart gmond
 
 ## Metrics
 
-Currently, only number of workflows are provided below:
-- failed
-- suspended
-- succeeded
-- prep
-- running
-- total
+* The number of workflows
+ - failed
+ - suspended
+ - succeeded
+ - prep
+ - running
+ - total
+
+* JVM Metrics
+ - max
+ - used
 
 ## Acknowledgements
 
